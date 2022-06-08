@@ -10,6 +10,12 @@ public class SimpleInterestRequest {
     private int terms;
     private double rate;
 
+    public SimpleInterestRequest(double amount, int terms, double rate) {
+        this.amount = amount;
+        this.terms = terms;
+        this.rate = rate;
+    }
+
     public double getAmount() {
         return amount;
     }

@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SimpleInterestServiceImpl implements SimpleInterestService {
 
+    @Override
     public List<Payment> createPayments(SimpleInterestRequest simpleInterestRequest) {
         log.debug("Calculating payments from service...");
         List<Payment> payments = calculatePayments(simpleInterestRequest);
