@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface SimpleInterestService {
 
-    public List<Payment> createPayments(SimpleInterestRequest simpleInterestRequest);
+    public List<Payment> createPayments(SimpleInterestRequest simpleInterestRequest) throws Exception;
 }

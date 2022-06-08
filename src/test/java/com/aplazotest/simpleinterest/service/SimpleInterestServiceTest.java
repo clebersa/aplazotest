@@ -1,11 +1,10 @@
 package com.aplazotest.simpleinterest.service;
 
 import com.aplazotest.simpleinterest.config.Config;
+import com.aplazotest.simpleinterest.error.InvalidArgumentException;
 import com.aplazotest.simpleinterest.model.Payment;
 import com.aplazotest.simpleinterest.model.SimpleInterestRequest;
-import java.util.ArrayList;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,11 +47,9 @@ public class SimpleInterestServiceTest {
     public void testCreatePayments_whenRequestHaveNoBody() {
         System.out.println("testCreatePayments_whenRequestHaveNoBody");
         SimpleInterestRequest simpleInterestRequest = null;
-        List<Payment> expResult = null;
 
-        List<Payment> result = simpleInterestService.createPayments(simpleInterestRequest);
-
-        assertEquals(expResult, result);
+        InvalidArgumentException thrown = assertThrows(InvalidArgumentException.class, () -> simpleInterestService.createPayments(simpleInterestRequest));
+        assertEquals("The request is empty", thrown.getMessage());
     }
 
     @Test
@@ -63,7 +60,7 @@ public class SimpleInterestServiceTest {
         //TODO: Create result to compare
         List<Payment> expResult = null;
 
-        List<Payment> result = simpleInterestService.createPayments(simpleInterestRequest);
+        List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
         assertEquals(expResult, result);
     }
@@ -73,11 +70,9 @@ public class SimpleInterestServiceTest {
         System.out.println("testCreatePayments_whenTermsTooSmall");
         SimpleInterestRequest simpleInterestRequest;
         simpleInterestRequest = new SimpleInterestRequest(100, 3, 10);
-        List<Payment> expResult = null;
 
-        List<Payment> result = simpleInterestService.createPayments(simpleInterestRequest);
-
-        assertEquals(expResult, result);
+        InvalidArgumentException thrown = assertThrows(InvalidArgumentException.class, () -> simpleInterestService.createPayments(simpleInterestRequest));
+        assertEquals("Terms must be at least 4", thrown.getMessage());
     }
 
     @Test
@@ -85,11 +80,9 @@ public class SimpleInterestServiceTest {
         System.out.println("testCreatePayments_whenTermsTooBig");
         SimpleInterestRequest simpleInterestRequest;
         simpleInterestRequest = new SimpleInterestRequest(100, 53, 10);
-        List<Payment> expResult = null;
 
-        List<Payment> result = simpleInterestService.createPayments(simpleInterestRequest);
-
-        assertEquals(expResult, result);
+        InvalidArgumentException thrown = assertThrows(InvalidArgumentException.class, () -> simpleInterestService.createPayments(simpleInterestRequest));
+        assertEquals("Terms must be up to 52", thrown.getMessage());
     }
 
     @Test
@@ -100,7 +93,7 @@ public class SimpleInterestServiceTest {
         //TODO: Create result to compare
         List<Payment> expResult = null;
 
-        List<Payment> result = simpleInterestService.createPayments(simpleInterestRequest);
+        List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
         assertEquals(expResult, result);
     }
@@ -113,7 +106,7 @@ public class SimpleInterestServiceTest {
         //TODO: Create result to compare
         List<Payment> expResult = null;
 
-        List<Payment> result = simpleInterestService.createPayments(simpleInterestRequest);
+        List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
         assertEquals(expResult, result);
     }
@@ -123,11 +116,9 @@ public class SimpleInterestServiceTest {
         System.out.println("testCreatePayments_whenTermsTooSmall");
         SimpleInterestRequest simpleInterestRequest;
         simpleInterestRequest = new SimpleInterestRequest(100, 4, 1);
-        List<Payment> expResult = null;
 
-        List<Payment> result = simpleInterestService.createPayments(simpleInterestRequest);
-
-        assertEquals(expResult, result);
+        InvalidArgumentException thrown = assertThrows(InvalidArgumentException.class, () -> simpleInterestService.createPayments(simpleInterestRequest));
+        assertEquals("Rate must be more than 1%", thrown.getMessage());
     }
 
     @Test
@@ -135,11 +126,9 @@ public class SimpleInterestServiceTest {
         System.out.println("testCreatePayments_whenTermsTooBig");
         SimpleInterestRequest simpleInterestRequest;
         simpleInterestRequest = new SimpleInterestRequest(100, 4, 100);
-        List<Payment> expResult = null;
 
-        List<Payment> result = simpleInterestService.createPayments(simpleInterestRequest);
-
-        assertEquals(expResult, result);
+        InvalidArgumentException thrown = assertThrows(InvalidArgumentException.class, () -> simpleInterestService.createPayments(simpleInterestRequest));
+        assertEquals("Rate must be less than 100%", thrown.getMessage());
     }
 
     @Test
@@ -150,7 +139,7 @@ public class SimpleInterestServiceTest {
         //TODO: Create result to compare
         List<Payment> expResult = null;
 
-        List<Payment> result = simpleInterestService.createPayments(simpleInterestRequest);
+        List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
         assertEquals(expResult, result);
     }
@@ -163,7 +152,7 @@ public class SimpleInterestServiceTest {
         //TODO: Create result to compare
         List<Payment> expResult = null;
 
-        List<Payment> result = simpleInterestService.createPayments(simpleInterestRequest);
+        List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
         assertEquals(expResult, result);
     }
@@ -173,11 +162,9 @@ public class SimpleInterestServiceTest {
         System.out.println("testCreatePayments_whenTermsTooSmall");
         SimpleInterestRequest simpleInterestRequest;
         simpleInterestRequest = new SimpleInterestRequest(1, 4, 10);
-        List<Payment> expResult = null;
 
-        List<Payment> result = simpleInterestService.createPayments(simpleInterestRequest);
-
-        assertEquals(expResult, result);
+        InvalidArgumentException thrown = assertThrows(InvalidArgumentException.class, () -> simpleInterestService.createPayments(simpleInterestRequest));
+        assertEquals("Amount must be more than $1.00", thrown.getMessage());
     }
 
     @Test
@@ -185,11 +172,9 @@ public class SimpleInterestServiceTest {
         System.out.println("testCreatePayments_whenTermsTooBig");
         SimpleInterestRequest simpleInterestRequest;
         simpleInterestRequest = new SimpleInterestRequest(999999, 4, 10);
-        List<Payment> expResult = null;
 
-        List<Payment> result = simpleInterestService.createPayments(simpleInterestRequest);
-
-        assertEquals(expResult, result);
+        InvalidArgumentException thrown = assertThrows(InvalidArgumentException.class, () -> simpleInterestService.createPayments(simpleInterestRequest));
+        assertEquals("Amount must be less than $999,999.00", thrown.getMessage());
     }
 
     @Test
@@ -200,7 +185,7 @@ public class SimpleInterestServiceTest {
         //TODO: Create result to compare
         List<Payment> expResult = null;
 
-        List<Payment> result = simpleInterestService.createPayments(simpleInterestRequest);
+        List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
         assertEquals(expResult, result);
     }
@@ -213,7 +198,7 @@ public class SimpleInterestServiceTest {
         //TODO: Create result to compare
         List<Payment> expResult = null;
 
-        List<Payment> result = simpleInterestService.createPayments(simpleInterestRequest);
+        List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
         assertEquals(expResult, result);
     }
