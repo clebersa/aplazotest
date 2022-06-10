@@ -1,19 +1,23 @@
 package com.aplazotest.simpleinterest.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Date;
+import java.time.LocalDate;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  *
  * @author cleber
  */
+@ToString
+@EqualsAndHashCode
 public class Payment {
 
     private int paymentNumber;
     private double amount;
-    private Date paymentDate;
+    private LocalDate paymentDate;
 
-    public Payment(int paymentNumber, double amount, Date paymentDate) {
+    public Payment(int paymentNumber, double amount, LocalDate paymentDate) {
         this.paymentNumber = paymentNumber;
         this.amount = amount;
         this.paymentDate = paymentDate;
@@ -38,11 +42,11 @@ public class Payment {
     }
 
     @JsonProperty("payment_date")
-    public Date getPaymentDate() {
+    public LocalDate getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(Date paymentDate) {
+    public void setPaymentDate(LocalDate paymentDate) {
         this.paymentDate = paymentDate;
     }
 

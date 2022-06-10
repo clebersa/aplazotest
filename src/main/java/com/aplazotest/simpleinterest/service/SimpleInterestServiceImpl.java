@@ -1,12 +1,19 @@
 package com.aplazotest.simpleinterest.service;
 
+import com.aplazotest.simpleinterest.Constants;
 import com.aplazotest.simpleinterest.error.InvalidArgumentException;
 import com.aplazotest.simpleinterest.error.RequestValidation;
 import com.aplazotest.simpleinterest.model.Payment;
 import com.aplazotest.simpleinterest.model.SimpleInterestRequest;
+import java.time.LocalDate;
+import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
@@ -63,19 +70,51 @@ public class SimpleInterestServiceImpl implements SimpleInterestService {
         return RequestValidation.valid();
     }
 
+    /**
+     * Calculates the payment for a simple interest request. Since I am not sure
+     * about the business logic to implement this, I followed the logic below.
+     * Every week, the payment will be composed of a fixed amount (fixedPay)
+     * plus the interest on the remaining balance (principalRemaining). The
+     * fixedPay is equals to the requested amount divided by the number of
+     * terms. The principalRemaining for each week is equals to:<br/>
+     * <ul>
+     * <li>amount - (0 * amount / terms) in the first payment </li>
+     * <li>amount - (1 * amount / terms) in the second payment </li>
+     * <li>amount - (3 * amount / terms) in the third payment </li>
+     * </ul>
+     * and so on until the last payment. The rate on a weekly payment base is
+     * the given year rate (from the request) divided by 365 (days in a year)
+     * times 7 (days in a week). I used these links as references:<br/>
+     * <ul>
+     * <li>
+     * <a href="https://www.bankrate.com/loans/personal-loans/how-to-calculate-loan-interest/">https://www.bankrate.com/loans/personal-loans/how-to-calculate-loan-interest/</a>
+     * </li>
+     * <li>
+     * <a href="https://www.mainstreetcu.org/calculator/complex-loan">https://www.mainstreetcu.org/calculator/complex-loan</a>
+     * </li>
+     * </ul>
+     *
+     * @param simpleInterestRequest The object containing the simple interest
+     * input data to calculate the payments.
+     * @return List of payments calculated from the simple interest input data.
+     */
     private List<Payment> calculatePayments(SimpleInterestRequest simpleInterestRequest) {
         List<Payment> payments = new ArrayList<>();
+        double termPay;
+        double principalRemaining = simpleInterestRequest.getAmount();
+        final double fixedPay = principalRemaining / simpleInterestRequest.getTerms();
+        final double weeklyRate = simpleInterestRequest.getRate() * 7 / 365 / 100;
+        final LocalDate todayDate = LocalDate.now();
 
-        if (simpleInterestRequest == null) {
-            return payments;
+        for (int i = 1; i <= simpleInterestRequest.getTerms(); i++) {
+            termPay = fixedPay + principalRemaining * weeklyRate;
+            payments.add(new Payment(
+                    i,
+                    Double.parseDouble(Constants.DECIMAL_FORMAT.format(termPay)),
+                    todayDate.plus(i, ChronoUnit.WEEKS)
+            ));
+            principalRemaining = fixedPay * (simpleInterestRequest.getTerms() - i);
         }
-
-        //TODO: Calculate the payments
-        payments = Arrays.asList(
-                new Payment(simpleInterestRequest.getTerms(), simpleInterestRequest.getAmount(), new Date()),
-                new Payment(20, simpleInterestRequest.getRate(), new Date()),
-                new Payment(10, 789.12, new Date())
-        );
 
         return payments;
 
