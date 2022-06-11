@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +26,7 @@ public class SimpleInterestController {
 
     private final SimpleInterestService simpleInterestService;
 
-    @RequestMapping("/calculate-payment")
+    @PostMapping("/calculate-payment")
     public Collection<Payment> newPaymentCalculation(@RequestBody SimpleInterestRequest simpleInterestRequest) {
         try {
             return simpleInterestService.createPayments(simpleInterestRequest);

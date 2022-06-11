@@ -5,18 +5,10 @@ import com.aplazotest.simpleinterest.config.Config;
 import com.aplazotest.simpleinterest.error.InvalidArgumentException;
 import com.aplazotest.simpleinterest.model.Payment;
 import com.aplazotest.simpleinterest.model.SimpleInterestRequest;
-import java.text.DecimalFormat;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalField;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -58,12 +50,15 @@ public class SimpleInterestServiceTest {
     private List<Payment> mapToPaymentsList(double[] paymentsValues) {
         final LocalDate todayDate = LocalDate.now();
         List<Payment> payments = new ArrayList<>();
+        Payment payment;
         for (int i = 1; i <= paymentsValues.length; i++) {
-            payments.add(new Payment(
+            payment = new Payment(
                     i,
                     Double.parseDouble(Constants.DECIMAL_FORMAT.format(paymentsValues[i - 1])),
                     todayDate.plus(i, ChronoUnit.WEEKS)
-            ));
+            );
+            payment.setId(i);
+            payments.add(payment);
         }
         return payments;
     }

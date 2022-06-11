@@ -1,11 +1,20 @@
 package com.aplazotest.simpleinterest.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  *
  * @author cleber
  */
+@Entity
 public class SimpleInterestRequest {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private double amount;
     private int terms;
     private double rate;
