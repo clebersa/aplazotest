@@ -47,7 +47,7 @@ public class SimpleInterestServiceTest {
     public void tearDown() {
     }
 
-    private List<Payment> mapToPaymentsList(double[] paymentsValues) {
+    private List<Payment> mapToPaymentsList(double[] paymentsValues, SimpleInterestRequest request) {
         final LocalDate todayDate = LocalDate.now();
         List<Payment> payments = new ArrayList<>();
         Payment payment;
@@ -58,6 +58,7 @@ public class SimpleInterestServiceTest {
                     todayDate.plus(i, ChronoUnit.WEEKS)
             );
             payment.setId(i);
+            payment.setSimpleInterestRequest(request);
             payments.add(payment);
         }
         return payments;
@@ -77,6 +78,7 @@ public class SimpleInterestServiceTest {
         System.out.println("testCreatePayments_whenTermsValid");
         SimpleInterestRequest simpleInterestRequest;
         simpleInterestRequest = new SimpleInterestRequest(100, 10, 10);
+        simpleInterestRequest.setId(1);
         double[] payments = new double[]{
             10.1917808219178,
             10.172602739726,
@@ -89,7 +91,7 @@ public class SimpleInterestServiceTest {
             10.0383561643836,
             10.0191780821918
         };
-        List<Payment> expResult = mapToPaymentsList(payments);
+        List<Payment> expResult = mapToPaymentsList(payments, simpleInterestRequest);
 
         List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
@@ -121,13 +123,14 @@ public class SimpleInterestServiceTest {
         System.out.println("testCreatePayments_whenTermsLimitSmall");
         SimpleInterestRequest simpleInterestRequest;
         simpleInterestRequest = new SimpleInterestRequest(100, 4, 10);
+        simpleInterestRequest.setId(1);
         double[] payments = new double[]{
             25.1917808219178,
             25.1438356164384,
             25.0958904109589,
             25.0479452054795
         };
-        List<Payment> expResult = mapToPaymentsList(payments);
+        List<Payment> expResult = mapToPaymentsList(payments, simpleInterestRequest);
 
         List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
@@ -139,6 +142,7 @@ public class SimpleInterestServiceTest {
         System.out.println("testCreatePayments_whenTermsLimitBig");
         SimpleInterestRequest simpleInterestRequest;
         simpleInterestRequest = new SimpleInterestRequest(100, 52, 10);
+        simpleInterestRequest.setId(1);
         double[] payments = new double[]{
             2.11485774499473,
             2.11116965226554,
@@ -193,7 +197,7 @@ public class SimpleInterestServiceTest {
             1.9304531085353,
             1.92676501580611
         };
-        List<Payment> expResult = mapToPaymentsList(payments);
+        List<Payment> expResult = mapToPaymentsList(payments, simpleInterestRequest);
 
         List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
@@ -225,13 +229,14 @@ public class SimpleInterestServiceTest {
         System.out.println("testCreatePayments_whenTermsLimitSmall");
         SimpleInterestRequest simpleInterestRequest;
         simpleInterestRequest = new SimpleInterestRequest(100, 4, 1.1);
+        simpleInterestRequest.setId(1);
         double[] payments = new double[]{
             25.021095890411,
             25.0158219178082,
             25.0105479452055,
             25.0052739726027
         };
-        List<Payment> expResult = mapToPaymentsList(payments);
+        List<Payment> expResult = mapToPaymentsList(payments, simpleInterestRequest);
 
         List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
@@ -243,13 +248,14 @@ public class SimpleInterestServiceTest {
         System.out.println("testCreatePayments_whenTermsLimitBig");
         SimpleInterestRequest simpleInterestRequest;
         simpleInterestRequest = new SimpleInterestRequest(100, 4, 99.9);
+        simpleInterestRequest.setId(1);
         double[] payments = new double[]{
             26.9158904109589,
             26.4369178082192,
             25.9579452054794,
             25.4789726027397
         };
-        List<Payment> expResult = mapToPaymentsList(payments);
+        List<Payment> expResult = mapToPaymentsList(payments, simpleInterestRequest);
 
         List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
@@ -281,13 +287,14 @@ public class SimpleInterestServiceTest {
         System.out.println("testCreatePayments_whenTermsLimitSmall");
         SimpleInterestRequest simpleInterestRequest;
         simpleInterestRequest = new SimpleInterestRequest(1.01, 4, 10);
+        simpleInterestRequest.setId(1);
         double[] payments = new double[]{
             0.25443698630137,
             0.253952739726027,
             0.253468493150685,
             0.252984246575342
         };
-        List<Payment> expResult = mapToPaymentsList(payments);
+        List<Payment> expResult = mapToPaymentsList(payments, simpleInterestRequest);
 
         List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
@@ -299,13 +306,14 @@ public class SimpleInterestServiceTest {
         System.out.println("testCreatePayments_whenTermsLimitBig");
         SimpleInterestRequest simpleInterestRequest;
         simpleInterestRequest = new SimpleInterestRequest(999998.01, 4, 10);
+        simpleInterestRequest.setId(1);
         double[] payments = new double[]{
             251917.30690274,
             251437.855802055,
             250958.40470137,
             250478.953600685
         };
-        List<Payment> expResult = mapToPaymentsList(payments);
+        List<Payment> expResult = mapToPaymentsList(payments, simpleInterestRequest);
 
         List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 

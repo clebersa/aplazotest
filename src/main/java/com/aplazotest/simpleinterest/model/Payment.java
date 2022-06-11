@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
@@ -16,6 +19,7 @@ import lombok.ToString;
  */
 @ToString
 @EqualsAndHashCode
+@NoArgsConstructor
 @Entity
 //@Table
 public class Payment {
@@ -23,12 +27,12 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-//    @Column
     private int paymentNumber;
-//    @Column
     private double amount;
-//    @Column
     private LocalDate paymentDate;
+    @ManyToOne
+    @JoinColumn(name = "SIMPLE_REQUEST_ID", referencedColumnName = "ID")
+    private SimpleInterestRequest simpleInterestRequest;
 
     public Payment(int paymentNumber, double amount, LocalDate paymentDate) {
         this.paymentNumber = paymentNumber;
@@ -70,6 +74,15 @@ public class Payment {
 
     public void setPaymentDate(LocalDate paymentDate) {
         this.paymentDate = paymentDate;
+    }
+
+    @JsonIgnore
+    public SimpleInterestRequest getSimpleInterestRequest() {
+        return simpleInterestRequest;
+    }
+
+    public void setSimpleInterestRequest(SimpleInterestRequest simpleInterestRequest) {
+        this.simpleInterestRequest = simpleInterestRequest;
     }
 
 }

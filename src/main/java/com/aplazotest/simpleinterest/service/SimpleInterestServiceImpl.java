@@ -8,14 +8,8 @@ import com.aplazotest.simpleinterest.model.SimpleInterestRequest;
 import com.aplazotest.simpleinterest.repository.PaymentRepository;
 import com.aplazotest.simpleinterest.repository.SimpleInterestRequestRepository;
 import java.time.LocalDate;
-import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +24,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class SimpleInterestServiceImpl implements SimpleInterestService {
-    
+
     private final PaymentRepository paymentRepository;
     private final SimpleInterestRequestRepository simpleInterestRequestRepository;
 
@@ -44,10 +38,11 @@ public class SimpleInterestServiceImpl implements SimpleInterestService {
             throw new InvalidArgumentException(requestValidation.getErrorMessage());
         }
 
+        simpleInterestRequestRepository.save(simpleInterestRequest);
+
         List<Payment> payments = calculatePayments(simpleInterestRequest);
         log.info("Number of payments calculated: " + payments.size());
 
-        simpleInterestRequestRepository.save(simpleInterestRequest);
         paymentRepository.saveAll(payments);
         return payments;
     }
@@ -117,14 +112,16 @@ public class SimpleInterestServiceImpl implements SimpleInterestService {
         final double fixedPay = principalRemaining / simpleInterestRequest.getTerms();
         final double weeklyRate = simpleInterestRequest.getRate() * 7 / 365 / 100;
         final LocalDate todayDate = LocalDate.now();
-        
+        Payment payment;
         for (int i = 1; i <= simpleInterestRequest.getTerms(); i++) {
             termPay = fixedPay + principalRemaining * weeklyRate;
-            payments.add(new Payment(
+            payment = new Payment(
                     i,
                     Double.parseDouble(Constants.DECIMAL_FORMAT.format(termPay)),
                     todayDate.plus(i, ChronoUnit.WEEKS)
-            ));
+            );
+            payment.setSimpleInterestRequest(simpleInterestRequest);
+            payments.add(payment);
             principalRemaining = fixedPay * (simpleInterestRequest.getTerms() - i);
         }
 
