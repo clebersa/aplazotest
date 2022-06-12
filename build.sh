@@ -1,3 +1,7 @@
+# This script was based on the instructions to create a Docker image using
+# SpringBoot, which can be found here:
+# https://spring.io/guides/gs/spring-boot-docker/
+
 # Compile and package the source code
 mvnw package
 
