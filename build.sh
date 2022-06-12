@@ -12,4 +12,4 @@ mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 sudo docker build -t aplazotest/springboot .
 
 # Run the container
-sudo docker run -p 8081:8080 aplazotest/springboot
+#sudo docker run -p 8081:8080 aplazotest/springboot

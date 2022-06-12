@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -21,68 +22,28 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
-//@Table
+@Data
 public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private long id;
+    @JsonProperty("payment_number")
     private int paymentNumber;
+    @JsonProperty("amount")
     private double amount;
+    @JsonProperty("payment_date")
     private LocalDate paymentDate;
     @ManyToOne
     @JoinColumn(name = "SIMPLE_REQUEST_ID", referencedColumnName = "ID")
+    @JsonIgnore
     private SimpleInterestRequest simpleInterestRequest;
 
     public Payment(int paymentNumber, double amount, LocalDate paymentDate) {
         this.paymentNumber = paymentNumber;
         this.amount = amount;
         this.paymentDate = paymentDate;
-    }
-
-    @JsonIgnore
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    @JsonProperty("payment_number")
-    public int getPaymentNumber() {
-        return paymentNumber;
-    }
-
-    public void setPaymentNumber(int paymentNumber) {
-        this.paymentNumber = paymentNumber;
-    }
-
-    @JsonProperty("amount")
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    @JsonProperty("payment_date")
-    public LocalDate getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(LocalDate paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-
-    @JsonIgnore
-    public SimpleInterestRequest getSimpleInterestRequest() {
-        return simpleInterestRequest;
-    }
-
-    public void setSimpleInterestRequest(SimpleInterestRequest simpleInterestRequest) {
-        this.simpleInterestRequest = simpleInterestRequest;
     }
 
 }
