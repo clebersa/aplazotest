@@ -12,13 +12,11 @@ import javax.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 /**
  *
  * @author cleber
  */
-@ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
