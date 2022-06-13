@@ -17,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
+ * This class implements all the operations defined in the SimpleInterestService
+ * interface.
  *
  * @author cleber
  */
@@ -30,7 +32,7 @@ public class SimpleInterestServiceImpl implements SimpleInterestService {
 
     @Override
     @Transactional
-    public List<Payment> createPayments(SimpleInterestRequest simpleInterestRequest) throws Exception {
+    public List<Payment> createPayments(SimpleInterestRequest simpleInterestRequest) throws InvalidArgumentException {
         log.debug("Calculating payments from service...");
 
         RequestValidation requestValidation = validadeSimpleInterestRequest(simpleInterestRequest);
@@ -47,6 +49,13 @@ public class SimpleInterestServiceImpl implements SimpleInterestService {
         return payments;
     }
 
+    /**
+     * Validates a simple interest request. This method verifies if the request
+     * attributes are within the accepted thresholds for the request.
+     *
+     * @param simpleInterestRequest
+     * @return The result of the request validation.
+     */
     private RequestValidation validadeSimpleInterestRequest(SimpleInterestRequest simpleInterestRequest) {
         //Validate request
         if (simpleInterestRequest == null) {

@@ -44,8 +44,12 @@ public class SimpleInterestServiceTest {
     public void tearDown() {
     }
 
+    /**
+     * Test of testCreatePayments method, of class SimpleInterestService. Check
+     * if exception is thrown when request has no body.
+     */
     @Test
-    public void testCreatePayments_whenRequestHaveNoBody() {
+    public void testCreatePayments_whenRequestHasNoBody() {
         System.out.println("testCreatePayments_whenRequestHaveNoBody");
         SimpleInterestRequest simpleInterestRequest = null;
 
@@ -53,6 +57,10 @@ public class SimpleInterestServiceTest {
         assertEquals("The request is empty", thrown.getMessage());
     }
 
+    /**
+     * Test of testCreatePayments method, of class SimpleInterestService. Check
+     * if the payments are calculated correctly when when request is valid.
+     */
     @Test
     public void testCreatePayments_whenRequestOk() {
         System.out.println("testCreatePayments_whenTermsValid");
@@ -78,6 +86,10 @@ public class SimpleInterestServiceTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of testCreatePayments method, of class SimpleInterestService. Check
+     * if exception is thrown when terms is too small in the request.
+     */
     @Test
     public void testCreatePayments_whenTermsTooSmall() {
         System.out.println("testCreatePayments_whenTermsTooSmall");
@@ -88,6 +100,10 @@ public class SimpleInterestServiceTest {
         assertEquals("Terms must be at least 4", thrown.getMessage());
     }
 
+    /**
+     * Test of testCreatePayments method, of class SimpleInterestService. Check
+     * if exception is thrown when terms is too big in the request.
+     */
     @Test
     public void testCreatePayments_whenTermsTooBig() {
         System.out.println("testCreatePayments_whenTermsTooBig");
@@ -98,6 +114,11 @@ public class SimpleInterestServiceTest {
         assertEquals("Terms must be up to 52", thrown.getMessage());
     }
 
+    /**
+     * Test of testCreatePayments method, of class SimpleInterestService. Check
+     * if the payments are calculated correctly for the lowest valid terms
+     * attribute.
+     */
     @Test
     public void testCreatePayments_whenTermsLimitSmall() {
         System.out.println("testCreatePayments_whenTermsLimitSmall");
@@ -117,6 +138,11 @@ public class SimpleInterestServiceTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of testCreatePayments method, of class SimpleInterestService. Check
+     * if the payments are calculated correctly for the highest valid terms
+     * attribute.
+     */
     @Test
     public void testCreatePayments_whenTermsLimitBig() {
         System.out.println("testCreatePayments_whenTermsLimitBig");
@@ -184,6 +210,10 @@ public class SimpleInterestServiceTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of testCreatePayments method, of class SimpleInterestService. Check
+     * if exception is thrown when rate is too small in the request.
+     */
     @Test
     public void testCreatePayments_whenRateTooSmall() {
         System.out.println("testCreatePayments_whenTermsTooSmall");
@@ -194,6 +224,10 @@ public class SimpleInterestServiceTest {
         assertEquals("Rate must be more than 1%", thrown.getMessage());
     }
 
+    /**
+     * Test of testCreatePayments method, of class SimpleInterestService. Check
+     * if exception is thrown when rate is too big in the request.
+     */
     @Test
     public void testCreatePayments_whenRateTooBig() {
         System.out.println("testCreatePayments_whenTermsTooBig");
@@ -204,6 +238,11 @@ public class SimpleInterestServiceTest {
         assertEquals("Rate must be less than 100%", thrown.getMessage());
     }
 
+    /**
+     * Test of testCreatePayments method, of class SimpleInterestService. Check
+     * if the payments are calculated correctly for the lowest valid rate
+     * attribute.
+     */
     @Test
     public void testCreatePayments_whenRateLimitSmall() {
         System.out.println("testCreatePayments_whenTermsLimitSmall");
@@ -223,6 +262,11 @@ public class SimpleInterestServiceTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of testCreatePayments method, of class SimpleInterestService. Check
+     * if the payments are calculated correctly for the highest valid rate
+     * attribute.
+     */
     @Test
     public void testCreatePayments_whenRateLimitBig() {
         System.out.println("testCreatePayments_whenTermsLimitBig");
@@ -242,6 +286,10 @@ public class SimpleInterestServiceTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of testCreatePayments method, of class SimpleInterestService. Check
+     * if exception is thrown when amount is too small in the request.
+     */
     @Test
     public void testCreatePayments_whenAmountTooSmall() {
         System.out.println("testCreatePayments_whenTermsTooSmall");
@@ -252,6 +300,10 @@ public class SimpleInterestServiceTest {
         assertEquals("Amount must be more than $1.00", thrown.getMessage());
     }
 
+    /**
+     * Test of testCreatePayments method, of class SimpleInterestService. Check
+     * if exception is thrown when amount is too big in the request.
+     */
     @Test
     public void testCreatePayments_whenAmountTooBig() {
         System.out.println("testCreatePayments_whenTermsTooBig");
@@ -262,6 +314,11 @@ public class SimpleInterestServiceTest {
         assertEquals("Amount must be less than $999,999.00", thrown.getMessage());
     }
 
+    /**
+     * Test of testCreatePayments method, of class SimpleInterestService. Check
+     * if the payments are calculated correctly for the lowest valid amount
+     * attribute.
+     */
     @Test
     public void testCreatePayments_whenAmountLimitSmall() {
         System.out.println("testCreatePayments_whenTermsLimitSmall");
@@ -281,6 +338,11 @@ public class SimpleInterestServiceTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of testCreatePayments method, of class SimpleInterestService. Check
+     * if the payments are calculated correctly for the highest valid amount
+     * attribute.
+     */
     @Test
     public void testCreatePayments_whenAmountLimitBig() {
         System.out.println("testCreatePayments_whenTermsLimitBig");

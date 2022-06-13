@@ -2,18 +2,25 @@ package com.aplazotest.simpleinterest;
 
 import com.aplazotest.simpleinterest.model.Payment;
 import com.aplazotest.simpleinterest.model.SimpleInterestRequest;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This class defines helpful methods to be used when running the tests.
  *
  * @author cleber
  */
 public class TestsUtil {
 
+    /**
+     * Maps an array of payments values to Payment objects.
+     *
+     * @param paymentsValues The values for all the payments.
+     * @param request The request associated to the payments.
+     * @return The list of payments.
+     */
     public static List<Payment> mapToPaymentsList(double[] paymentsValues, SimpleInterestRequest request) {
         final LocalDate todayDate = LocalDate.now();
         List<Payment> payments = new ArrayList<>();
@@ -29,13 +36,5 @@ public class TestsUtil {
             payments.add(payment);
         }
         return payments;
-    }
-
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }

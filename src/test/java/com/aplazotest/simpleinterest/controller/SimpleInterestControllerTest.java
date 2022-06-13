@@ -60,6 +60,7 @@ public class SimpleInterestControllerTest {
 
     /**
      * Test of newPaymentCalculation method, of class SimpleInterestController.
+     * Checks if a bad request is returned when no payload is provided.
      *
      * @throws java.lang.Exception
      */
@@ -77,6 +78,9 @@ public class SimpleInterestControllerTest {
 
     /**
      * Test of newPaymentCalculation method, of class SimpleInterestController.
+     * Check if a bad request is returned when the request is invalid.
+     *
+     * @throws java.lang.Exception
      */
     @Test
     public void testNewPaymentCalculation_invalidRequest() throws Exception {
@@ -106,9 +110,12 @@ public class SimpleInterestControllerTest {
 
     /**
      * Test of newPaymentCalculation method, of class SimpleInterestController.
+     * Check if the payments are returned when request is valid.
+     *
+     * @throws java.lang.Exception
      */
     @Test
-    public void testNewPaymentCalculation_ok() throws Exception {
+    public void testNewPaymentCalculation_requestValid() throws Exception {
         System.out.println("newPaymentCalculation_ok");
         String requestBody = "{\"amount\":100,\"terms\":4,\"rate\":1.1}";
         SimpleInterestRequest request = new SimpleInterestRequest(100, 4, 1.1);
@@ -129,7 +136,18 @@ public class SimpleInterestControllerTest {
                 .andExpectAll(
                         status().isOk(),
                         jsonPath("$", Matchers.hasSize(expResult.size())),
-                        jsonPath("$[0].payment_number", CoreMatchers.is(expResult.get(0).getPaymentNumber()))
+                        jsonPath("$[0].payment_number", CoreMatchers.is(expResult.get(0).getPaymentNumber())),
+                        jsonPath("$[0].amount", CoreMatchers.is(expResult.get(0).getAmount())),
+                        jsonPath("$[0].payment_date", CoreMatchers.is(expResult.get(0).getPaymentDate().toString())),
+                        jsonPath("$[1].payment_number", CoreMatchers.is(expResult.get(1).getPaymentNumber())),
+                        jsonPath("$[1].amount", CoreMatchers.is(expResult.get(1).getAmount())),
+                        jsonPath("$[1].payment_date", CoreMatchers.is(expResult.get(1).getPaymentDate().toString())),
+                        jsonPath("$[2].payment_number", CoreMatchers.is(expResult.get(2).getPaymentNumber())),
+                        jsonPath("$[2].amount", CoreMatchers.is(expResult.get(2).getAmount())),
+                        jsonPath("$[2].payment_date", CoreMatchers.is(expResult.get(2).getPaymentDate().toString())),
+                        jsonPath("$[3].payment_number", CoreMatchers.is(expResult.get(3).getPaymentNumber())),
+                        jsonPath("$[3].amount", CoreMatchers.is(expResult.get(3).getAmount())),
+                        jsonPath("$[3].payment_date", CoreMatchers.is(expResult.get(3).getPaymentDate().toString()))
                 );
 
     }

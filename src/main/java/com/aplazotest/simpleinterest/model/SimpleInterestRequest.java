@@ -1,5 +1,6 @@
 package com.aplazotest.simpleinterest.model;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,13 +11,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * This class defines the structure of a simple interest request object.
  *
  * @author cleber
  */
 @NoArgsConstructor
 @Entity
 @Data
-public class SimpleInterestRequest {
+public class SimpleInterestRequest implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
