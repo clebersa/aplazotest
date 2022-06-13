@@ -19,3 +19,4 @@ This application provides the following endpoints:
 - [/](http://localhost:8081): Returns the string `simple-interest`, which is the name of the application.
 - [/calculate-simple-interest-payments](http://localhost:8081/calculate-simple-interest-payments): This is the the main endpoint of the application. It performs the operation requested in the task: calculating, storing and returning the payments for a simple interest request.
 - [/h2-console](http://localhost:8081/h2-console): This endpoint enables you to manage the application H2 database. It is enabled by default, but this endpoint should be available only as a development tool. To disable this endpoint set `spring.h2.console.settings.web-allow-others=false` in the `application.properties` file. Other properties for the database are also defined in this file.
+- [/actuator/health](http://localhost:8081/actuator/health): This endpoint returns the status of the application.
