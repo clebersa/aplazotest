@@ -1,13 +1,10 @@
 package com.aplazotest.simpleinterest.service;
 
-import com.aplazotest.simpleinterest.Constants;
+import com.aplazotest.simpleinterest.TestsUtil;
 import com.aplazotest.simpleinterest.config.Config;
 import com.aplazotest.simpleinterest.error.InvalidArgumentException;
 import com.aplazotest.simpleinterest.model.Payment;
 import com.aplazotest.simpleinterest.model.SimpleInterestRequest;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -47,23 +44,6 @@ public class SimpleInterestServiceTest {
     public void tearDown() {
     }
 
-    private List<Payment> mapToPaymentsList(double[] paymentsValues, SimpleInterestRequest request) {
-        final LocalDate todayDate = LocalDate.now();
-        List<Payment> payments = new ArrayList<>();
-        Payment payment;
-        for (int i = 1; i <= paymentsValues.length; i++) {
-            payment = new Payment(
-                    i,
-                    Double.parseDouble(Constants.DECIMAL_FORMAT.format(paymentsValues[i - 1])),
-                    todayDate.plus(i, ChronoUnit.WEEKS)
-            );
-            payment.setId(i);
-            payment.setSimpleInterestRequest(request);
-            payments.add(payment);
-        }
-        return payments;
-    }
-
     @Test
     public void testCreatePayments_whenRequestHaveNoBody() {
         System.out.println("testCreatePayments_whenRequestHaveNoBody");
@@ -91,7 +71,7 @@ public class SimpleInterestServiceTest {
             10.0383561643836,
             10.0191780821918
         };
-        List<Payment> expResult = mapToPaymentsList(payments, simpleInterestRequest);
+        List<Payment> expResult = TestsUtil.mapToPaymentsList(payments, simpleInterestRequest);
 
         List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
@@ -130,7 +110,7 @@ public class SimpleInterestServiceTest {
             25.0958904109589,
             25.0479452054795
         };
-        List<Payment> expResult = mapToPaymentsList(payments, simpleInterestRequest);
+        List<Payment> expResult = TestsUtil.mapToPaymentsList(payments, simpleInterestRequest);
 
         List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
@@ -197,7 +177,7 @@ public class SimpleInterestServiceTest {
             1.9304531085353,
             1.92676501580611
         };
-        List<Payment> expResult = mapToPaymentsList(payments, simpleInterestRequest);
+        List<Payment> expResult = TestsUtil.mapToPaymentsList(payments, simpleInterestRequest);
 
         List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
@@ -236,7 +216,7 @@ public class SimpleInterestServiceTest {
             25.0105479452055,
             25.0052739726027
         };
-        List<Payment> expResult = mapToPaymentsList(payments, simpleInterestRequest);
+        List<Payment> expResult = TestsUtil.mapToPaymentsList(payments, simpleInterestRequest);
 
         List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
@@ -255,7 +235,7 @@ public class SimpleInterestServiceTest {
             25.9579452054794,
             25.4789726027397
         };
-        List<Payment> expResult = mapToPaymentsList(payments, simpleInterestRequest);
+        List<Payment> expResult = TestsUtil.mapToPaymentsList(payments, simpleInterestRequest);
 
         List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
@@ -294,7 +274,7 @@ public class SimpleInterestServiceTest {
             0.253468493150685,
             0.252984246575342
         };
-        List<Payment> expResult = mapToPaymentsList(payments, simpleInterestRequest);
+        List<Payment> expResult = TestsUtil.mapToPaymentsList(payments, simpleInterestRequest);
 
         List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 
@@ -313,7 +293,7 @@ public class SimpleInterestServiceTest {
             250958.40470137,
             250478.953600685
         };
-        List<Payment> expResult = mapToPaymentsList(payments, simpleInterestRequest);
+        List<Payment> expResult = TestsUtil.mapToPaymentsList(payments, simpleInterestRequest);
 
         List<Payment> result = assertDoesNotThrow(() -> simpleInterestService.createPayments(simpleInterestRequest));
 

@@ -26,7 +26,7 @@ public class SimpleInterestController {
 
     private final SimpleInterestService simpleInterestService;
 
-    @PostMapping("/calculate-payment")
+    @PostMapping("/calculate-simple-interest-payments")
     public Collection<Payment> newPaymentCalculation(@RequestBody SimpleInterestRequest simpleInterestRequest) {
         try {
             return simpleInterestService.createPayments(simpleInterestRequest);
